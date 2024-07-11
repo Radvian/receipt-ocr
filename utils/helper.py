@@ -16,6 +16,8 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 openai.api_key = OPENAI_API_KEY
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
+GOOGLE_VISION_API_KEY = st.secrets["GOOGLE_VISION_API_KEY"]
+
 # Initialize OpenAI and Google Vision clients
 openai_client = OpenAI()
 instructor_client = instructor.from_openai(openai_client)
@@ -33,7 +35,7 @@ def numberstring_convert(numstring):
     return numstring_new
 
 def detect_text(path):
-    vision_client = vision.ImageAnnotatorClient(client_options={'api_key':'AIzaSyCpHLlScsjd3N76VjLk4vVqIE14tfi3GlU'})
+    vision_client = vision.ImageAnnotatorClient(client_options={'api_key':GOOGLE_VISION_API_KEY})
 
     """Detects text in the file."""
     with open(path, "rb") as image_file:
