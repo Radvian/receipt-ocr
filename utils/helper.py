@@ -51,7 +51,7 @@ def detect_text(path):
     with open('google_application_credentials.json', 'w') as json_file:
         json.dump(credentials, json_file)
     
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google_application_credentials.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "boxwood-diagram-426306-s3-08d2ae3cca77.json"
     vision_client = vision.ImageAnnotatorClient()
 
     """Detects text in the file."""
