@@ -9,14 +9,9 @@ from google.cloud import vision
 from .prompt import input_prompt_item_price_info, input_prompt_payment_info, input_prompt_tenant_info
 import streamlit as st
 # import asyncio
-
-# Load environment variables from .env file
-# load_dotenv()
-# openai_api_key = os.getenv('OPENAI_API_KEY')
-# google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-
-OPENAI_API_KEY = "sk-proj-ng9OAKRHN8Oyx4pleGuCT3BlbkFJm5cPv8mMt9GlCRApgx7o"
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 GOOGLE_APPLICATION_CREDENTIALS = "boxwood-diagram-426306-s3-08d2ae3cca77.json"
+
 openai_api_key = OPENAI_API_KEY
 google_credentials = GOOGLE_APPLICATION_CREDENTIALS
 
