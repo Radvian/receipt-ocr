@@ -10,8 +10,6 @@ from utils.helper import detect_text, main_extract
 
 def main():
     st.title("Receipt OCR and Information Extraction")
-    st.write("Rough Approximate Cost: Rp300,- per receipt depending on what needs to be processed and extracted.")
-    st.write("Average processing time: 5-10 seconds.")
     uploaded_file = st.file_uploader("Upload a .jpg receipt", type=["jpg"])
     
     if uploaded_file is not None:
