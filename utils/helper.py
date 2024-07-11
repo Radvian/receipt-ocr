@@ -13,6 +13,7 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 load_dotenv()
 google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+st.write(google_credentials)
 
 openai_api_key = OPENAI_API_KEY
 # Set API keys for OpenAI and Google Vision
