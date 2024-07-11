@@ -13,6 +13,8 @@ from google.oauth2 import service_account
 import json
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+print(OPENAI_API_KEY)
+st.write(OPENAI_API_KEY)
 openai.api_key = OPENAI_API_KEY
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
