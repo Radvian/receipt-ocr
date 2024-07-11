@@ -10,11 +10,11 @@ from .prompt import input_prompt_item_price_info, input_prompt_payment_info, inp
 import streamlit as st
 # import asyncio
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
-GOOGLE_APPLICATION_CREDENTIALS = "boxwood-diagram-426306-s3-08d2ae3cca77.json"
+
+load_dotenv()
+google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 openai_api_key = OPENAI_API_KEY
-google_credentials = GOOGLE_APPLICATION_CREDENTIALS
-
 # Set API keys for OpenAI and Google Vision
 openai.api_key = openai_api_key
 os.environ['OPENAI_API_KEY'] = openai_api_key
