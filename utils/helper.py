@@ -12,7 +12,7 @@ import streamlit as st
 from google.oauth2 import service_account
 import json
 
-OPENAI_API_KEY = "sk-proj-ng9OAKRHN8Oyx4pleGuCT3BlbkFJm5cPv8mMt9GlCRApgx7o"
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 openai.api_key = OPENAI_API_KEY
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
