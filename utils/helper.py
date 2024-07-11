@@ -33,7 +33,7 @@ def numberstring_convert(numstring):
     return numstring_new
 
 def detect_text(path):
-      credentials={
+    credentials={
       "type": "service_account",
       "project_id": "boxwood-diagram-426306-s3",
       "private_key_id": "08d2ae3cca77c6c2e3d0ca4aaa0f48a59bd122c2",
