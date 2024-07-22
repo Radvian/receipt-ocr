@@ -39,7 +39,7 @@ def main():
         with st.spinner('Extracting information...'):
             start_time = time.time()
 
-            receipt_info_list = main_extract(ocr_result, selected_model_name='gpt-4o')
+            receipt_info_list = main_extract(ocr_result, selected_model_name='gpt-4o-mini')
             # st.write(receipt_info_list)
 
             end_time = time.time()
