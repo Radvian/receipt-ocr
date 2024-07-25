@@ -550,55 +550,40 @@ input_prompt_payment_info = f"""
     """
 
 
-# input_prompt_without_example = f"""
-#     You will be given an OCR result from a picture of receipt. 
+ktp_extract_prompt = """
+    You will be given OCR from KTP (Kartu Tanda Penduduk Indonesia).
+    Please extract the following data:
+    - "provinsi"
+    - "kota_kabupaten"
+    - "NIK"
+    - "nama"
+    - "tempat_tgl_lahir"
+    - "jenis_kelamin"
+    - "alamat"
+    - "rt_rw"
+    - "kelurahan_desa"
+    - "kecamatan"
+    - "agama"
+    - "status_perkawinan"
+    - "pekerjaan"
+    - "kewarganegaraan"
+    - "berlaku_hingga"
+    - "golongan_darah"
+    - "tanggal_pembuatan_ktp"
+"""
 
-#     You are tasked to extract the following parameters/metadata: 
-#     - is_receipt: do you think the inputed ocr result is a receipt or not? 'yes' if it is a receipt, 'no' if it is not a receipt
-#     - tenant_name: the name of the tenant
-#     - tenant_location_mall: the mall that the tenant is in (leave it blank if you cannot infer)
-#     - receipt_number: the receipt number
-#     - cashier: the cashier ID or cashier name that is responsible for the receipt. pay attention, this is tricky: some receipts have ID for their cashier, or some receipts have name for their cashier. Identify them well. 
-#     - transaction_date: the date of the transaction
-#     - transaction_time: the time (time, clock, hour minute second) of the transaction
-#     - customer_name: the name of the customer (left blank if not detected)
-#     - customer_phone_number: the phone number of the customer, if available. If not, leave it blank.
-#     - item_list_price: the items that is bought and the prices of individual items. list all items that is OCR'd in the ocr text result. YOU WILL RECEIVE SPECIAL INSTRUCTIONS FOR THIS
-#     - sub_total: this is essentially the total before the very final total price. usually, in the receipt, there are 'two' totals, one is the pre-adjusted totals (before tax, rounding, service fee, etc), and the other is the final total. this should be the pre-adjusted total. If there are gross total and net total, choose the one that is right before the final total. The total before the final total. However, please note that in some cases, the sub_total is the same as the total_paid (final total) and that is completely fine! this is the total that appears before the final number that denotes the final price that is paid
-#     - total_paid: the final final total, the amount of money that is paid, after considering all adjustments (fees, taxes, rounding)
-#     - service: service fee. If you don't find any service tax or fee, please just write 0 (zero) as the 'service' key requires an integer value
-#     - pb1_tax: PB1 or TAX amount. If you don't find any PB1 or Tax, please just write 0 (zero)
-#     - discount: if there are any discounts. If you don't find any discount, please just write 0 (zero)
-#     - rounding: if there are any rounding. If you don't find any rounding, just write 0 (zero)
-#     - payment_method: the payment method. leave it to 'unknown' if you cannot infer
-
-#     Please read all the input text carefully. Sometimes, the tenant name is located near the end of the receipt text, so not always at the top.
-#     Use your reasoning skill to discern everything well. 
-
-#     Special Instruction Regarding `item_list_price`: 
-#     Please extract it in the format of a dictionary like this:
-#     {{
-#         'item_1_name':{{
-#             'sku': 'the code or SKU of the item, leave it blank if there is none',
-#             'original_price': 'the starting price of the item, before any discount or price changes',
-#             'quantity': 'the quantity of the item (how many of this item is bought)',
-#             'discount': 'the discount price changes to the item (discounts). fill it with 0 if there are no discounts',
-#             'final_price': 'the final price of the item (it is totally possible that the final price of the item is the same as the original price as there are no changes, but if there are price changes, please take note of the final price here)'
-#         }},
-#     }}
-
-#     etc until all individual item name and price are listed.
-#     So please, your output in the `item_list_price` should be structured as a dictionary.
-
-#     Further instructions to be remembered: 
-#     ```
-#     POS itle is not a cashier name.
-
-#     If you think the ocr result is not a receipt, please write 'no' in the 'is_receipt' part
-#     If what you parse is a movie ticket, it is not a receipt, so write 'no' in the 'is_receipt' part
-#     If you detect no `sub_total` and/or no `total_paid`, please look at the `item_list_price`. For example, if there is an item that is bought, but you don't see any subtotal or total price, then the item bought and its price is the subtotal and total item paid. 
-#     Some receipt are very unstructured - such as the case above, there is a price in the individual item list, but no subtotal or total. Then you can write down the total and subtotal as the sum of the price in the individual item list. Timezone or mezone receipts are mostlikely like that.
-    
-#     Now, with the above instructions, parse the following receipt output: 
-#     OCR Result: 
-#     """
+sim_extract_prompt = """
+    You will be given OCR from SIM (Surat Izin Mengemudi Indonesia).
+    Please extract the following data: 
+    - "nama"
+    - "tipe_sim": the type of SIM (Sim A, Sim B, Sim C, Sim D, Sim A Umum, Sim B Umum)
+    - "nomor_sim"
+    - "tempat_lahir"
+    - "tanggal_lahir"
+    - "golongan_darah"
+    - "jenis_kelamin"
+    - "alamat"
+    - "pekerjaan"
+    - "domisili"
+    - "tanggal_pembuatan_sim"
+"""

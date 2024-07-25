@@ -262,3 +262,111 @@ def main_extract(ocr_text, selected_model_name):
     
     result_list = [item_info, payment_info, tenant_info]
     return result_list
+
+def extract_ktp(ocr_text, system_prompt, model_name):
+    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+    openai.api_key = OPENAI_API_KEY
+    os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
+  
+    # Initialize OpenAI and Google Vision clients
+    openai_client = OpenAI()
+    instructor_client = instructor.from_openai(openai_client) 
+    class KTP(BaseModel):
+        provinsi: str
+        kota_kabupaten: str
+        nik: str
+        nama: str
+        tempat_tgl_lahir: str
+        jenis_kelamin: str
+        alamat: str
+        rt_rw: str
+        kelurahan_desa: str
+        kecamatan: str
+        agama: str
+        status_perkawinan: str
+        pekerjaan: str
+        kewarganegaraan: str
+        berlaku_hingga: str
+        golongan_darah: str
+        tanggal_pembuatan_ktp: str
+
+    ktp_info = instructor_client.chat.completions.create(
+        model='gpt-4o-mini',
+        response_model=KTP,
+        messages=[
+            {"role":"system", "content": system_prompt},
+            {"role":"user", "content":ocr_text}
+        ]
+    )
+    
+    # Create a dictionary to hold the extracted KTP information
+    ktp_dict = {
+        "Provinsi": [ktp_info.provinsi],
+        "Kota/Kabupaten": [ktp_info.kota_kabupaten],
+        "NIK": [ktp_info.nik],
+        "Nama": [ktp_info.nama],
+        "Tempat/Tgl Lahir": [ktp_info.tempat_tgl_lahir],
+        "Jenis Kelamin": [ktp_info.jenis_kelamin],
+        "Alamat": [ktp_info.alamat],
+        "RT/RW": [ktp_info.rt_rw],
+        "Kelurahan/Desa": [ktp_info.kelurahan_desa],
+        "Kecamatan": [ktp_info.kecamatan],
+        "Agama": [ktp_info.agama],
+        "Status Perkawinan": [ktp_info.status_perkawinan],
+        "Pekerjaan": [ktp_info.pekerjaan],
+        "Kewarganegaraan": [ktp_info.kewarganegaraan],
+        "Berlaku Hingga": [ktp_info.berlaku_hingga],
+        "Golongan Darah": [ktp_info.golongan_darah],
+        "Tanggal Pembuatan KTP": [ktp_info.tanggal_pembuatan_ktp]
+    }
+
+    
+    return ktp_dict
+
+def extract_sim(ocr_text, system_prompt, model_name):
+    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+    openai.api_key = OPENAI_API_KEY
+    os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
+  
+    # Initialize OpenAI and Google Vision clients
+    openai_client = OpenAI()
+    instructor_client = instructor.from_openai(openai_client) 
+    class SIM(BaseModel):
+        nama: str
+        tipe_sim: str
+        nomor_sim: str
+        tempat_lahir: str
+        tanggal_lahir: str
+        golongan_darah: str
+        jenis_kelamin: str
+        alamat: str
+        pekerjaan: str
+        domisili: str
+        tanggal_pembuatan_sim: str
+
+    sim_info = instructor_client.chat.completions.create(
+        model='gpt-4o-mini',
+        response_model=SIM,
+        messages=[
+            {"role":"system", "content": system_prompt},
+            {"role":"user", "content":ocr_text}
+        ]
+    )
+    
+    # Create a dictionary to hold the extracted KTP information
+    sim_dict = {
+        "Nama":[sim_info.nama],
+        "Tipe SIM":[sim_info.tipe_sim],
+        "Nomor SIM":[sim_info.nomor_sim],
+        "Tempat Lahir":[sim_info.tempat_lahir],
+        "Tanggal Lahir":[sim_info.tanggal_lahir],
+        "Golongan Darah":[sim_info.golongan_darah],
+        "Jenis Kelamin":[sim_info.jenis_kelamin],
+        "Alamat":[sim_info.alamat],
+        "Pekerjaan":[sim_info.pekerjaan],
+        "Domisili":[sim_info.domisili],
+        "Tanggal Pembuatan SIM":[sim_info.tanggal_pembuatan_sim]
+    }
+
+    
+    return sim_dict
